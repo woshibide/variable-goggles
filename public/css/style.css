@@ -1,0 +1,405 @@
+:root {
+  --sidebar-width: 300px;
+  --primary-color: #0066cc;
+  --background-color: #f8f8f8;
+  --sidebar-color: #f8f8f8;
+  --border-color: #e0e0e0;
+  --text-color: #333333;
+  --section-spacing: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+/* 
+    layout 
+*/
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  flex-direction: row-reverse; 
+  position: relative; 
+  background-color: var(--sidebar-color);
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  background-color: var(--sidebar-color);
+  border-left: 1px solid var(--border-color);
+  padding: 20px;
+  overflow-y: auto;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  position: relative; /* ensure position relative for absolute positioning of the toggle */
+}
+
+.sidebar.collapsed {
+  width: 0;
+  min-width: 0;
+  padding: 0;
+  border-left: none;
+  overflow: hidden;
+}
+
+.sidebar-toggle {
+  position: fixed; /* change back to fixed for visibility */
+  right: var(--sidebar-width); /* position at the edge of sidebar */
+  top: 50%; 
+  transform: translateY(-50%);
+  width: 30px;
+  height: 60px;
+  background-color: var(--primary-color); /* make it stand out with primary color */
+  border: 1px solid var(--border-color);
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; /* white text for better contrast */
+  font-size: 32px; /* slightly smaller font */
+  transition: all 0.3s ease;
+  z-index: 1010; /* higher z-index to ensure visibility */
+  box-shadow: -2px 0 8px rgba(0,0,0,0.2); /* more prominent shadow */
+}
+
+/* update right position when sidebar is collapsed */
+.sidebar.collapsed ~ .content .sidebar-toggle,
+.sidebar.collapsed + .content .sidebar-toggle,
+.sidebar.collapsed .sidebar-toggle {
+  right: 0;
+}
+
+/* handle hover state for better user feedback */
+.sidebar-toggle:hover {
+  background-color: #0052a3; /* darker shade on hover */
+  width: 34px; /* slightly larger on hover */
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease; /* add transition */
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 14px;
+  text-transform: lowercase;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #666;
+}
+
+.section {
+  margin-bottom: var(--section-spacing);
+  padding-bottom: var(--section-spacing);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* 
+    form elements 
+*/
+.input-group {
+  margin-bottom: 10px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.text-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.font-selector,
+.text-selector {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+/* 
+    range sliders and numeric inputs 
+*/
+.range-with-value {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.range-with-value input[type="range"] {
+  flex-grow: 1;
+}
+
+.range-with-value .value-input {
+  width: 50px;
+  text-align: right;
+  padding: 4px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.range-with-value span {
+  font-size: 12px;
+  color: #666;
+  width: 20px;
+}
+
+input[type="range"] {
+  width: 100%;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--border-color);
+  border-radius: 2px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  cursor: pointer;
+}
+
+/* 
+    buttons 
+*/
+.button-group {
+  display: flex;
+  gap: 5px;
+}
+
+.button {
+  padding: 8px 12px;
+  background-color: #f0f0f0;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #e0e0e0;
+}
+
+.button.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.button.small {
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+/* 
+    animation 
+*/
+.animation-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.animation-controls .button {
+  width: 100%;
+}
+
+/* 
+    color inputs 
+*/
+input[type="color"] {
+  width: 100%;
+  height: 30px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* 
+    variable axes 
+*/
+.axis-control {
+  margin-bottom: 15px;
+}
+
+.axis-control .axis-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.axis-control .axis-name {
+  font-weight: 500;
+}
+
+.axis-control .axis-tag {
+  color: #999;
+  font-size: 12px;
+}
+
+.axis-control .axis-value {
+  font-size: 12px;
+  color: #666;
+}
+
+.axis-control .axis-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.axis-control .axis-actions button {
+  padding: 2px 6px;
+  font-size: 11px;
+}
+
+.axis-animating {
+  background-color: #e6f0ff;
+  border-left: 3px solid var(--primary-color);
+  padding-left: 5px;
+}
+
+.no-axes-message {
+  color: #999;
+  font-style: italic;
+}
+
+/* 
+    views 
+*/
+.view-container {
+  flex-grow: 1;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+  transition: width 0.3s ease;
+}
+
+.view {
+  display: none;
+  padding: 30px;
+  height: 100%;
+}
+
+.view.active {
+  display: block;
+}
+
+/* 
+    text view 
+*/
+.text-display {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* 
+    waterfall view 
+*/
+.waterfall-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.waterfall-row {
+  display: flex;
+}
+
+.waterfall-size {
+  width: 60px;
+  color: #999;
+  flex-shrink: 0;
+  text-align: right;
+  padding-right: 10px;
+}
+
+/* 
+    glyphs view 
+*/
+.glyphs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 15px;
+}
+
+.glyph-item {
+  text-align: center;
+  padding: 10px;
+  border: 0.5px solid var(--border-color);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.glyph-char {
+  font-size: 32px;
+  display: block;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glyph-name {
+  font-size: 10px;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 
+    footer 
+*/
+.footer {
+  padding: 10px 30px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--sidebar-color);
+}
+
+/* 
+    helper 
+*/
+.hidden {
+  display: none;
+}

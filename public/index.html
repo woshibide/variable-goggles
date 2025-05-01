@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Variable Font Viewer</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="sidebar">
+      <h1>Font Viewer</h1>
+      
+      <div class="section">
+        <h2>select font</h2>
+        <select id="font-selector" class="font-selector">
+          <option value="">loading fonts...</option>
+        </select>
+      </div>
+      
+      <div class="section">
+        <h2>text input</h2>
+        <div class="input-group">
+          <select id="text-selector" class="text-selector">
+            <option value="">loading texts...</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <textarea id="text-input" class="text-input" rows="3" placeholder="enter text..."></textarea>
+        </div>
+      </div>
+      
+      <div class="section view-options">
+        <h2>view mode</h2>
+        <div class="button-group">
+          <button class="button view-mode active" data-mode="text">plain</button>
+          <button class="button view-mode" data-mode="waterfall">waterfall</button>
+          <button class="button view-mode" data-mode="glyphs">glyphs</button>
+        </div>
+      </div>
+      
+      <div class="section">
+        <h2>text properties</h2>
+        <div class="input-group">
+          <label>font size</label>
+          <div class="range-with-value">
+            <input type="range" id="font-size" min="8" max="200" value="48">
+            <input type="number" id="font-size-input" class="value-input" value="48" min="8" max="200">
+            <span>px</span>
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label>line height</label>
+          <div class="range-with-value">
+            <input type="range" id="line-height" min="0.7" max="2" step="0.05" value="1.2">
+            <input type="number" id="line-height-input" class="value-input" value="1.2" min="0.7" max="2" step="0.05">
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label>letter spacing</label>
+          <div class="range-with-value">
+            <input type="range" id="letter-spacing" min="-0.1" max="0.5" step="0.01" value="0">
+            <input type="number" id="letter-spacing-input" class="value-input" value="0" min="-0.1" max="0.5" step="0.01">
+            <span>em</span>
+          </div>
+        </div>
+      </div>
+      
+      <div id="variable-axes" class="section variable-axes">
+        <h2>variable axes</h2>
+        <!-- axes controls will be added dynamically -->
+        <div class="no-axes-message">no variable axes available</div>
+      </div>
+      
+      <div class="section">
+        <h2>animation</h2>
+        <div class="animation-controls">
+          <button id="animate-all" class="button">animate all axes</button>
+          <div class="input-group">
+            <label>speed</label>
+            <div class="range-with-value">
+              <input type="range" id="animation-speed" min="0.5" max="5" step="0.1" value="1">
+              <input type="number" id="animation-speed-input" class="value-input" value="1" min="0.5" max="5" step="0.1">
+              <span>x</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="section">
+        <h2>colors</h2>
+        <div class="input-group">
+          <label>text color</label>
+          <input type="color" id="text-color" value="#000000">
+        </div>
+        <div class="input-group">
+          <label>background color</label>
+          <input type="color" id="bg-color" value="#ffffff">
+        </div>
+      </div>
+    </div>
+    
+    <div class="content">
+      <button class="sidebar-toggle" aria-label="Toggle sidebar">
+        &rsaquo;
+      </button>
+      
+      <div class="view-container">
+        <div id="text-view" class="view text-view active">
+          <div class="text-display" id="text-display"></div>
+        </div>
+        
+        <div id="waterfall-view" class="view waterfall-view">
+          <div class="waterfall-container" id="waterfall-container"></div>
+        </div>
+        
+        <div id="glyphs-view" class="view glyphs-view">
+          <div class="glyphs-grid" id="glyphs-grid"></div>
+        </div>
+      </div>
+      
+      <div class="footer">
+        <p><span id="current-font-name">none selected</span></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
